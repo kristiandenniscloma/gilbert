@@ -4,18 +4,22 @@ from flask import Flask, request, jsonify
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
+import json
+from flask import Flask
+
+from dotenv import load_dotenv
+load_dotenv()  # This method will load environment variables from a .env file
+
+
 app = Flask(__name__)
 
-current_directory = os.path.dirname(__file__)
 
+key_details = os.environ.get('GCP_SERVICE_ACCOUNT_JSON')
 
-service_account_json_str = os.environ.get("GCP_SERVICE_ACCOUNT_JSON")
-# Parse the JSON string into a dictionary
-service_account_info = json.loads(service_account_json_str)
+service_account_info = json.loads(key_details)
 
-credentials = service_account.Credentials.from_service_account_file(
-    key_path, scopes=["https://www.googleapis.com/auth/cloud-platform"],
-)
+credentials = service_account.Credentials.from_service_account_info(service_account_info)
+
 client = bigquery.Client(credentials=credentials, project=credentials.project_id)
 
 
