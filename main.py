@@ -23,6 +23,10 @@ credentials = service_account.Credentials.from_service_account_info(service_acco
 client = bigquery.Client(credentials=credentials, project=credentials.project_id)
 
 
+@app.route('/', methods=['GET'])
+def home():
+    return 'This is index pagegit'
+
 # ------------
 # order_status
 # ------------
