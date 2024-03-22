@@ -25,7 +25,7 @@ client = bigquery.Client(credentials=credentials, project=credentials.project_id
 
 @app.route('/', methods=['GET'])
 def home():
-    return 'This is index pagegit'
+    return 'This is index page'
 
 # ------------
 # order_status
